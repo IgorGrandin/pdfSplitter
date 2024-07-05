@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <input type="file" (change)="loadPdf($event)" accept="application/pdf" />
+
+  <!-- File Name Form-->
+  <form autocomplete="autocomplete_off" [formGroup]="onLoginForm" class="list-form">
+
+    <ion-item color="light" class="animated fadeInUp ion-margin">
+      <ion-input formControlName="formPrefix" label="Prefixo (Opcional)" labelPlacement="floating" fill="outline" type="text" placeholder="NFSe" id=""></ion-input>
+      <ion-input formControlName="formNumber" label="Número Inicial" labelPlacement="floating" fill="outline" type="number" placeholder="80501" (keydown.enter)="splitPdf()"></ion-input>
+    </ion-item>
+  </form>
+
+  <ion-row>
+    <ion-col size="2"></ion-col>
+    <ion-col size="8">
+      <ion-button expand="block" color="primary"
+      (click)="splitPdf()" [disabled]="!onLoginForm.valid" tappable>
+      Download</ion-button>
+    </ion-col>
+    <ion-col size="2"></ion-col>
+  </ion-row>
+
+</ion-content>
