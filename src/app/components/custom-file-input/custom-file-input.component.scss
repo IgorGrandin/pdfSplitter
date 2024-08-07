@@ -1,0 +1,27 @@
+.file-drop-area {
+  position: relative;
+  width: 70vw;
+  height: 40vh;
+  border: 2px dashed #007bff;
+  border-radius: 25px;
+  text-align: center;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba($color: #007bff, $alpha: 0.1);
+  cursor: pointer; /* Faz com que a área pareça clicável */
+
+  &.dragover {
+    background-color: rgba($color: #007bff, $alpha: 0.3);
+  }
+
+  .file-message {
+    margin: 0;
+  }
+}
+
+.file-text {
+  font-size: 1.2rem;
+  color: #007bff;
+}

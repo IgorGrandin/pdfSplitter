@@ -1,0 +1,47 @@
+.generalDiv {
+  display: flex;
+  height: 100vh;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.pageText {
+  align-self: center;
+}
+
+.pdfDiv {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.footerDiv {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: 70%;
+  margin-bottom: 10px;
+}
+
+.formDiv {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.fieldDiv {
+  display: flex;
+  width: 100%;
+}
+
+.closeBut {
+  position: absolute;
+  top: 40px;
+  right: 8vw;
+}
+
+.butMenu {
+  position: absolute;
+}

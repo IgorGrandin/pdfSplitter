@@ -1,0 +1,19 @@
+<div
+  class="drag-drop-area"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+  (drop)="onDrop($event)"
+  [class.dragover]="isDragOver"
+  (click)="fileInput.click()"
+>
+  <p class="file-text">Clique ou arraste e solte os arquivos</p>
+  <input type="file" #fileInput multiple accept="application/pdf" (change)="onFileSelected($event)" />
+</div>
+<ul>
+  <li *ngFor="let file of files; let i = index">
+    {{ file.name }}
+    <button (click)="removeFile(i)">Remove</button>
+    <button (click)="moveUp(i)" [disabled]="i === 0">Up</button>
+    <button (click)="moveDown(i)" [disabled]="i === files.length - 1">Down</button>
+  </li>
+</ul>

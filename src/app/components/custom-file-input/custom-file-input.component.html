@@ -1,0 +1,6 @@
+<div class="file-drop-area" (click)="fileInput.click()" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+  <input type="file" #fileInput (change)="onFileSelected($event)" hidden />
+  <div class="file-message">
+    <p class="file-text">Clique ou arraste e solte o arquivo aqui</p>
+  </div>
+</div>

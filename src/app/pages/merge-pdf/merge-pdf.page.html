@@ -1,0 +1,43 @@
+<div class="generalDiv">
+  <h1 class="pageText">Merge PDF</h1>
+  <ion-buttons slot="start" class="butMenu">
+    <ion-menu-button></ion-menu-button>
+  </ion-buttons>
+  <div class="pdfDiv">
+    <app-custom-multiple-files-input
+      *ngIf="pdfSrc.length == 0"
+      (filesSelected)="loadPdf($event)"
+    ></app-custom-multiple-files-input>
+    <ion-list>
+      <ion-item *ngFor="let file of pdfSrc; let i = index">
+        <ion-label>{{ file.name }}</ion-label>
+        <ion-button color="danger" (click)="removeFile(i)">Remove</ion-button>
+        <ion-button (click)="moveUp(i)" [disabled]="i === 0">Up</ion-button>
+        <ion-button
+          (click)="moveDown(i)"
+          [disabled]="i === pdfSrc.length - 1"
+          >Down</ion-button
+        >
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!-- File Name Form-->
+  <div class="footerDiv">
+    <ion-row>
+      <ion-col size="2"></ion-col>
+      <ion-col size="8">
+        <ion-button
+          class="ion-padding-vertical"
+          expand="block"
+          color="primary"
+          (click)="mergePdf()"
+          tappable
+        >
+          Merge</ion-button
+        >
+      </ion-col>
+      <ion-col size="2"></ion-col>
+    </ion-row>
+  </div>
+</div>

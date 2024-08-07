@@ -1,0 +1,80 @@
+<div class="generalDiv">
+  <h1 *ngIf="!pdfSrc" class="pageText">Split PDF</h1>
+  <ion-buttons slot="start" class="butMenu">
+    <ion-menu-button></ion-menu-button>
+  </ion-buttons>
+  <div class="pdfDiv">
+    <app-custom-file-input
+      *ngIf="!pdfSrc"
+      (fileSelected)="loadPdf($event)"
+    ></app-custom-file-input>
+    <ng2-pdfjs-viewer
+      *ngIf="pdfView"
+      [pdfSrc]="pdfView"
+      zoom="page-width"
+      [openFile]="false"
+      [download]="false"
+      [showSpinner]="true"
+      locale="pt-BR"
+      style="width: 90%; height: 100%"
+    ></ng2-pdfjs-viewer>
+    <ion-button
+      class="closeBut"
+      *ngIf="pdfView"
+      shape="round"
+      (click)="clearPdf()"
+    >
+      <ion-icon slot="icon-only" name="close"></ion-icon>
+    </ion-button>
+  </div>
+
+  <!-- File Name Form-->
+  <div class="footerDiv">
+    <form
+      autocomplete="autocomplete_off"
+      [formGroup]="onLoginForm"
+      class="list-form formDiv"
+    >
+      <div color="light" class="fieldDiv ion-margin">
+        <ion-input
+          formControlName="formPrefix"
+          label="Prefixo (Opcional)"
+          labelPlacement="floating"
+          fill="outline"
+          type="text"
+          placeholder="NFSe"
+          id=""
+          style="--highlight-color: #007bff"
+        ></ion-input>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <ion-input
+          formControlName="formNumber"
+          label="Número Inicial"
+          labelPlacement="floating"
+          fill="outline"
+          type="number"
+          placeholder="80501"
+          style="--highlight-color: #007bff"
+          (keydown.enter)="splitPdf()"
+        ></ion-input>
+      </div>
+    </form>
+
+    <ion-row>
+      <ion-col size="2"></ion-col>
+      <ion-col size="8">
+        <ion-button
+          class="ion-padding-vertical"
+          expand="block"
+          color="primary"
+          (click)="splitPdf()"
+          [disabled]="!onLoginForm.valid"
+          tappable
+        >
+          Split</ion-button
+        >
+      </ion-col>
+      <ion-col size="2"></ion-col>
+    </ion-row>
+  </div>
+</div>

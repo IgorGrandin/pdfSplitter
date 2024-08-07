@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   constructor() {}
+
+  public appPages = [
+    { title: 'Split PDF', url: 'split-pdf', icon: 'documents' },
+    { title: 'Merge PDF', url: 'merge-pdf', icon: 'duplicate' }
+  ];
 }

@@ -1,3 +1,32 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+    <ion-menu contentId="main-content" type="overlay">
+      <ion-content>
+
+        <ion-header class="menu-header ion-no-border">
+          <ion-toolbar>
+            <ion-title class="text-header">PDF Splitter</ion-title>
+          </ion-toolbar>
+        </ion-header>
+
+        <ion-list id="inbox-list">
+
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+              <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+        </ion-list>
+
+        <ion-footer class="menu-footer ion-no-border">
+          <ion-toolbar style="padding-right: 20px;">
+            <p class="text-footer">Made with 💙 by<br>Igor Grandin</p>
+          </ion-toolbar>
+        </ion-footer>
+
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+
 </ion-app>

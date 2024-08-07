@@ -22,10 +22,6 @@ export class PdfService {
     const pages = pdfDoc.getPages();
     const pdfs = [];
 
-    console.log('formData.formPrefix', formData.formPrefix);
-    console.log('formData.formPrefix.length', formData.formPrefix.length);
-    console.log('formData.formNumber', formData.formNumber);
-
     formData.formPrefix.length > 0 ? (formData.formPrefix += ' ') : null;
 
     for (let i = 0; i < pages.length; i++) {
@@ -38,8 +34,6 @@ export class PdfService {
         data: pdfBytes,
       });
     }
-
-    console.log('pdfs: ', pdfs);
 
     return pdfs;
   }
@@ -82,12 +76,6 @@ export class PdfService {
     const link = document.createElement('a');
     link.href = url;
     link.download = 'pdfs.zip';
-
-    // link.addEventListener('click', (event) => {
-    //   console.log(event);
-    //   alert('Download Concluído');
-    // });
-
     link.click();
     URL.revokeObjectURL(url);
   }
@@ -99,5 +87,35 @@ export class PdfService {
       binary += String.fromCharCode(uint8Array[i]);
     }
     return window.btoa(binary);
+  }
+
+  async mergePdfs(selectedFiles: File[]) {
+    if (selectedFiles.length < 2) {
+      alert('Selecione, no mínimo, 2 arquivos para uní-los.');
+      return;
+    }
+
+    const mergedPdf = await PDFDocument.create();
+
+    for (const file of selectedFiles) {
+      const arrayBuffer = await file.arrayBuffer();
+      const pdf = await PDFDocument.load(arrayBuffer);
+      const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+      copiedPages.forEach(page => mergedPdf.addPage(page));
+    }
+
+    const mergedPdfBytes = await mergedPdf.save();
+
+    return mergedPdfBytes;
+  }
+
+  async downloadPdf(pdfBytes: Uint8Array) {
+    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'merged.pdf';
+    link.click();
+    URL.revokeObjectURL(url);
   }
 }
