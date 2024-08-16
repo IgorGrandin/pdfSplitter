@@ -1,4 +1,6 @@
 <div
+  overflow-scroll="false"
+  *ngIf="pdfFiles.length == 0"
   class="drag-drop-area"
   (dragover)="onDragOver($event)"
   (dragleave)="onDragLeave($event)"
@@ -7,13 +9,63 @@
   (click)="fileInput.click()"
 >
   <p class="file-text">Clique ou arraste e solte os arquivos</p>
-  <input type="file" #fileInput multiple accept="application/pdf" (change)="onFileSelected($event)" />
+  <input
+    type="file"
+    #fileInput
+    multiple
+    accept="application/pdf"
+    (change)="onFileSelected($event)"
+  />
 </div>
-<ul>
-  <li *ngFor="let file of files; let i = index">
-    {{ file.name }}
-    <button (click)="removeFile(i)">Remove</button>
-    <button (click)="moveUp(i)" [disabled]="i === 0">Up</button>
-    <button (click)="moveDown(i)" [disabled]="i === files.length - 1">Down</button>
-  </li>
-</ul>
+<div
+  *ngIf="pdfFiles.length != 0"
+  class="drag-drop-area-docs"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+  (drop)="onDrop($event)"
+  [class.dragover]="isDragOver"
+  (click)="fileInput.click()"
+>
+  <div
+    *ngIf="pdfFiles.length != 0"
+    cdkDropList
+    cdkDropListOrientation="mixed"
+    class="dnd-pdf"
+    (cdkDropListDropped)="onReorder($event)"
+  >
+    <ion-card
+      class="card-pdf"
+      *ngFor="let pdf of pdfFiles"
+      cdkDrag
+      (click)="$event.stopPropagation()"
+    >
+      <ion-button
+        shape="round"
+        fill="clear"
+        class="erase-but"
+        (click)="deleteThisPdf(pdf.src); $event.stopPropagation()"
+      >
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+      <img class="img-pdf" *ngIf="pdf.thumbnail" [src]="pdf.thumbnail" />
+      <div class="spinner-pdf" *ngIf="!pdf.thumbnail">
+        <ion-spinner name="dots"></ion-spinner>
+      </div>
+      <ion-label>{{ pdf.src }}</ion-label>
+    </ion-card>
+  </div>
+  <input
+    type="file"
+    #fileInput
+    multiple
+    accept="application/pdf"
+    (change)="onFileSelected($event)"
+  />
+  <ion-button
+    class="closeBut"
+    shape="round"
+    (click)="deleteAllPdfs(); $event.stopPropagation()"
+  >
+    <ion-icon slot="icon-only" name="close"></ion-icon>
+  </ion-button>
+</div>

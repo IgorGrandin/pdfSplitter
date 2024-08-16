@@ -9,6 +9,7 @@ import { MergePdfPageRoutingModule } from './merge-pdf-routing.module';
 import { MergePdfPage } from './merge-pdf.page';
 import { CustomMultipleFilesInputComponent } from 'src/app/components/custom-multiple-files-input/custom-multiple-files-input.component';
 import { PdfJsViewerModule } from "ng2-pdfjs-viewer";
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   imports: [
@@ -17,9 +18,9 @@ import { PdfJsViewerModule } from "ng2-pdfjs-viewer";
     ReactiveFormsModule,
     IonicModule,
     MergePdfPageRoutingModule,
-    CustomMultipleFilesInputComponent,
-    PdfJsViewerModule
+    PdfJsViewerModule,
+    DragDropModule
   ],
-  declarations: [MergePdfPage]
+  declarations: [MergePdfPage, CustomMultipleFilesInputComponent]
 })
 export class MergePdfPageModule {}

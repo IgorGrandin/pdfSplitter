@@ -14,6 +14,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^18.0.0",
+    "@angular/cdk": "^18.2.0",
     "@angular/common": "^18.0.0",
     "@angular/compiler": "^18.0.0",
     "@angular/core": "^18.0.0",
@@ -33,7 +34,7 @@
     "jszip": "^3.10.1",
     "ng2-pdfjs-viewer": "^18.0.0",
     "pdf-lib": "^1.17.1",
-    "pdfjs-dist": "^4.4.168",
+    "pdfjs-dist": "^4.5.136",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"

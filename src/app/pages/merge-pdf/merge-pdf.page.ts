@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
 import { PdfService } from 'src/app/services/pdf/pdf.service';
 
 @Component({
@@ -9,16 +10,32 @@ import { PdfService } from 'src/app/services/pdf/pdf.service';
 export class MergePdfPage implements OnInit {
   pdfSrc: File[] = [];
   mergedPdf: Uint8Array = new Uint8Array();
+  pdfFiles: { file: File; src: string; thumbnail: string }[] = [];
+  internalEmitter: boolean = false;
+  disableButton: boolean = true;
+  loading: any;
 
-  constructor(private pdfService: PdfService) {}
+  constructor(
+    private pdfService: PdfService,
+    public loadingCtrl: LoadingController
+  ) {}
 
   ngOnInit() {}
 
-  async loadPdf(files: File[]) {
-    this.pdfSrc = files;
+  enableButton(status: any){
+    console.log("Bloqueado: ", status);
+    this.disableButton = status;
+  }
+
+  async loadPdf(files: any) {
+    this.pdfFiles = files;
+    this.pdfSrc = this.pdfFiles.map((file) => file.file);
   }
 
   async mergePdf() {
+    this.loading = await this.loadingCtrl.create();
+    this.loading.present();
+
     const mergedPdf = await this.pdfService.mergePdfs(this.pdfSrc);
 
     if (mergedPdf) {
@@ -32,39 +49,15 @@ export class MergePdfPage implements OnInit {
       return;
     }
     this.pdfService.downloadPdf(this.mergedPdf).then(() => {
-      this.clearAll();
+      this.clearPdf();
     });
   }
 
   clearPdf() {
     this.pdfSrc = [];
     this.mergedPdf = new Uint8Array();
-  }
-
-  clearAll() {
-    alert('Download Iniciado...');
-    this.clearPdf();
-  }
-
-  removeFile(index: number) {
-    this.pdfSrc.splice(index, 1);
-  }
-
-  moveUp(index: number) {
-    if (index > 0) {
-      [this.pdfSrc[index], this.pdfSrc[index - 1]] = [
-        this.pdfSrc[index - 1],
-        this.pdfSrc[index],
-      ];
-    }
-  }
-
-  moveDown(index: number) {
-    if (index < this.pdfSrc.length - 1) {
-      [this.pdfSrc[index], this.pdfSrc[index + 1]] = [
-        this.pdfSrc[index + 1],
-        this.pdfSrc[index],
-      ];
-    }
+    this.internalEmitter = true;
+    setTimeout(() => (this.internalEmitter = false), 0);
+    if (this.loading) setTimeout(() => (this.loading.dismiss()), 2000);
   }
 }

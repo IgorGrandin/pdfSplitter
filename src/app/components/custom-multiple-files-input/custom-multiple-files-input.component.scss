@@ -25,8 +25,101 @@
   display: none;
 }
 
+.drag-drop-area-docs {
+  padding: 20px;
+  min-width: 70vw;
+  max-width: 90vw;
+  min-height: 60vh;
+  border: 2px dashed #007bff;
+  border-radius: 25px;
+  text-align: center;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba($color: #007bff, $alpha: 0.1);
+  cursor: pointer; /* Faz com que a área pareça clicável */
+
+  &.dragover {
+    background-color: rgba($color: #007bff, $alpha: 0.3);
+  }
+}
+
+.drag-drop-area-docs.dragover {
+  border-color: #007bff;
+}
+
+.drag-drop-area-docs input[type="file"] {
+  display: none;
+}
+
 .file-text {
   font-size: 1.2rem;
   color: #007bff;
 }
 
+.card-pdf {
+  display: flex;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  flex-direction: column;
+  height: 220px;
+  width: 155px;
+  box-sizing: border-box;
+  background-color: white;
+  cursor: move;
+}
+
+.img-pdf {
+  height: 176px;
+  width: 124px;
+}
+
+.spinner-pdf {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 176px;
+  width: 124px;
+}
+
+.dnd-pdf {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: 60px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.closeBut {
+  position: absolute;
+  top: 40px;
+  right: 3vw;
+}
+
+.erase-but {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 20px;
+  background-color: white;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
