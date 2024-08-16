@@ -41,15 +41,34 @@
  *  (window as any).__Zone_enable_cross_context_check = true;
  *
  */
- 
+
 import './zone-flags';
 
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
-import 'zone.js';  // Included with Angular CLI.
-
+import 'zone.js'; // Included with Angular CLI.
 
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+(Promise as any).withResolvers = function <T>(): {
+  promise: Promise<T>;
+  resolve: (value: T | PromiseLike<T>) => void;
+  reject: (reason?: any) => void;
+} {
+  let resolveFn!: (value: T | PromiseLike<T>) => void;
+  let rejectFn!: (reason?: any) => void;
+
+  const promise = new Promise<T>((resolve, reject) => {
+    resolveFn = resolve;
+    rejectFn = reject;
+  });
+
+  return {
+    promise,
+    resolve: resolveFn,
+    reject: rejectFn,
+  };
+};

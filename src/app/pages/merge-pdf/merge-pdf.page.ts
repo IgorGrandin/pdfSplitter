@@ -23,7 +23,6 @@ export class MergePdfPage implements OnInit {
   ngOnInit() {}
 
   enableButton(status: any){
-    console.log("Bloqueado: ", status);
     this.disableButton = status;
   }
 

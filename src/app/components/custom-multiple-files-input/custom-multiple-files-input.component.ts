@@ -12,18 +12,18 @@ export class CustomMultipleFilesInputComponent {
     { file: File; src: string; thumbnail: string }[]
   >();
   @Output() enableButton = new EventEmitter<boolean>();
-  @Input() externalEmitter: boolean | undefined  ;
+  @Input() externalEmitter: boolean | undefined;
   pdfFiles: { file: File; src: string; thumbnail: string }[] = [];
   files: File[] = [];
   isDragOver = false;
 
   constructor() {
     pdfjsLib.GlobalWorkerOptions.workerSrc =
-      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.5.136/pdf.worker.mjs';
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
   }
 
-  ngOnChanges(){
-    if(this.externalEmitter){
+  ngOnChanges() {
+    if (this.externalEmitter) {
       this.deleteAllPdfs();
     }
   }
@@ -127,7 +127,7 @@ export class CustomMultipleFilesInputComponent {
     this.enableBtn();
   }
 
-  enableBtn(){
+  enableBtn() {
     var statusBtn = this.pdfFiles.length >= 2 ? false : true;
     this.enableButton.emit(statusBtn);
   }
